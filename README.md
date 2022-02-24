@@ -1,8 +1,10 @@
 # eleventy-plugin-ink
 
-This plugin lets you work with `.ink` files in your Eleventy input directory, and they will be converted to JSON files in your output directory.
+This plugin lets you work with `.ink` files in your Eleventy `_data` directory.
 
-It uses the `ink-tools` CLI to do the converting behind the scenes.
+If you create an `.ink` file at `_data/MyInkStory.ink`, you will be able to use the compiled data in your Eleventy data cascade by referring to MyInkStory. It is the same as any other global data variable.
+
+This plugin uses the `ink-tools` CLI to do the converting behind the scenes.
 
 When you're using `eleventy --watch`, Eleventy will rebuild your site each time you make a change to an `.ink` file.
 
