@@ -5,11 +5,11 @@
   "main": ".eleventy.js",
   "dependencies": {
     "@11ty/eleventy": "^1.0.0",
-    "@6i/ink-tools": "^1.0.0"
+    "@6i/ink-tools": "^1.0.0",
+    "lodash.merge": "^4.6.2"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eleventy --input test"
   },
   "keywords": [],
   "author": "",

@@ -1,18 +1,28 @@
 const { spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const lodashMerge = require("lodash.merge");
 
-module.exports = function (eleventyConfig) {
+const defaultOptions = {
+  temporaryCompilationFolder: "./ink-tmp",
+};
+
+module.exports = function (eleventyConfig, suppliedOptions = {}) {
+  let options = lodashMerge({}, defaultOptions, suppliedOptions);
+
   eleventyConfig.addTemplateFormats("ink");
 
   //   JSON files get written to this directory
-  const workingDirForInkCompiling = "./ink-tmp";
+  const { temporaryCompilationFolder } = options;
 
   //   before Eleventy builds, it makes sure that tmp folder exists.
   //   docs: https://www.11ty.dev/docs/events/
   eleventyConfig.on("eleventy.before", function () {
-    if (!fs.existsSync(workingDirForInkCompiling)) {
-      fs.mkdirSync(workingDirForInkCompiling);
+    if (!fs.existsSync(temporaryCompilationFolder)) {
+      console.log(
+        "[eleventy-plugin-ink] Creating temporary compilation folder"
+      );
+      fs.mkdirSync(temporaryCompilationFolder);
     }
   });
 
@@ -24,7 +34,7 @@ module.exports = function (eleventyConfig) {
       return async (data) => {
         const inkFilename = path.basename(inputPath);
         const outputPath = path.join(
-          workingDirForInkCompiling,
+          temporaryCompilationFolder,
           `${inkFilename}.json`
         );
 
@@ -65,10 +75,4 @@ module.exports = function (eleventyConfig) {
       };
     },
   });
-
-  return {
-    dir: {
-      input: "./src",
-    },
-  };
 };
