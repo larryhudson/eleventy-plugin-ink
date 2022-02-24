@@ -4,7 +4,7 @@ VAR evasive = 0
 
 
 // Inventory Items
-VAR teacup = true
+VAR teacup = false
 VAR gotcomponent = false
 
 
