@@ -20,11 +20,17 @@ module.exports = function (eleventyConfig, suppliedOptions = {}) {
     // This needs to write a temporary .ink file with the file contents
     // Then convert that .ink file to .json
     // Then return the contents of that rendered JSON file.
+
+    const temporaryCompilationFolderFullPath = path.join(
+      __dirname,
+      temporaryCompilationFolder
+    );
+
     const temporaryCompilationFolderIncludesSpace =
-      temporaryCompilationFolder.indexOf(" ") !== -1;
+      temporaryCompilationFolderFullPath.indexOf(" ") !== -1;
 
     if (temporaryCompilationFolderIncludesSpace) {
-      const spaceErrorMessage = `[eleventy-plugin-ink] temporaryCompilationFolder must not have a space in it`;
+      const spaceErrorMessage = `[eleventy-plugin-ink] project folder and temporaryCompilationFolder path must not have a space in it`;
       throw new Error(spaceErrorMessage);
     }
 
